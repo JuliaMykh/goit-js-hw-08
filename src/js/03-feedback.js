@@ -10,26 +10,23 @@ form.addEventListener('submit', onSubmitForm);
 saveTextArea();
 
 const formData = {};
-const STORAGE_KEY = 'feedback-message';
 
 function onInputForm(e) {
-    formData[e.target.name] = e.target.value;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+  formData[e.target.name] = e.target.value;
+  localStorage.setItem('feedback-message', JSON.stringify(formData));
 }
 
 function onSubmitForm(e) {
-    console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
-    e.preventDefault();
-    e.currentTarget.reset();
-    localStorage.removeItem(STORAGE_KEY);
+  console.log(JSON.parse(localStorage.getItem('feedback-message')));
+  e.preventDefault();
+  e.currentTarget.reset();
+  localStorage.removeItem('feedback-message');
 }
 
 function saveTextArea() {
-    const savedMessage = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (savedMessage) {
-        email.value = savedMessage.email;
-        message.value = savedMessage.message;
-    }
+  const savedMessage = JSON.parse(localStorage.getItem('feedback-message'));
+  if (savedMessage) {
+    email.value = savedMessage.email;
+    message.value = savedMessage.message;
+  }
 };
-
-
