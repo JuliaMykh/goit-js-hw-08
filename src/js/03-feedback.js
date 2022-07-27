@@ -9,7 +9,7 @@ form.addEventListener('submit', onSubmitForm);
 
 saveTextArea();
 
-const formData = {};
+let formData = JSON.parse(localStorage.getItem('feedback-message')) || {};
 
 function onInputForm(e) {
   formData[e.target.name] = e.target.value;
@@ -19,10 +19,16 @@ function onInputForm(e) {
 function onSubmitForm(e) {
   console.log(JSON.parse(localStorage.getItem('feedback-message')));
   e.preventDefault();
+  const email = e.target.elements.email.value;
+  const message = e.target.elements.message.value;
+  if (email === "" || message === "") {
+    alert("Заполните все поля!");
+    return
+  };
   e.currentTarget.reset();
   localStorage.removeItem('feedback-message');
 }
-
+    
 function saveTextArea() {
   const savedMessage = JSON.parse(localStorage.getItem('feedback-message'));
   if (savedMessage) {
@@ -30,3 +36,4 @@ function saveTextArea() {
     message.value = savedMessage.message;
   }
 };
+
